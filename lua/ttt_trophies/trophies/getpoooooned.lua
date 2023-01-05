@@ -9,7 +9,7 @@ function TROPHY:Trigger()
 
     self:AddHook("DoPlayerDeath", function(tgt,att,dmginf)
 		if IsValid(dmginf:GetInflictor()) and dmginf:GetInflictor():GetClass() == "hwapoon_arrow" then
-			if att:IsPlayer() then
+			if att and att:IsPlayer() then
 				self:Earn(att)
 			end
 		end

@@ -13,7 +13,7 @@ function TROPHY:Trigger()
 	end)
 
     self:AddHook("DoPlayerDeath", function(tgt,att,dmginf)
-		if att:IsPlayer() and (att:IsActiveTraitor() or (CR_VERSION and att:IsTraitorTeam())) and ((!CR_VERSION and !tgt:IsActiveTraitor()) or (CR_VERSION and (tgt:IsInnocentTeam() or tgt:IsMonsterTeam() or tgt:IsIndependentTeam() or ((tgt:GetRole() == ROLE_CLOWN) and tgt:GetNWBool("KillerClownActive", false))))) then	
+		if att and att:IsPlayer() and (att:IsActiveTraitor() or (CR_VERSION and att:IsTraitorTeam())) and ((!CR_VERSION and !tgt:IsActiveTraitor()) or (CR_VERSION and (tgt:IsInnocentTeam() or tgt:IsMonsterTeam() or tgt:IsIndependentTeam() or ((tgt:GetRole() == ROLE_CLOWN) and tgt:GetNWBool("KillerClownActive", false))))) then	
 			if att.terrslay < 2 then
 				att.terrslay = att.terrslay + 1
 			else

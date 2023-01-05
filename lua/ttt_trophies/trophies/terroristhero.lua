@@ -13,7 +13,7 @@ function TROPHY:Trigger()
 	end)
 
     self:AddHook("DoPlayerDeath", function(tgt,att,dmginf)
-		if att:IsPlayer() and ((!CR_VERSION and !att:IsActiveTraitor()) or (CR_VERSION and (att:IsInnocentTeam()))) and (tgt:IsActiveTraitor() or (CR_VERSION and tgt:IsTraitorTeam())) then	
+		if att and att:IsPlayer() and ((!CR_VERSION and !att:IsActiveTraitor()) or (CR_VERSION and (att:IsInnocentTeam()))) and (tgt:IsActiveTraitor() or (CR_VERSION and tgt:IsTraitorTeam())) then	
 			att.terrhero =att.terrhero + 1
 		end
     end)

@@ -8,9 +8,11 @@ function TROPHY:Trigger()
     self.roleMessage = ROLE_TRAITOR
 
     self:AddHook("DoPlayerDeath", function(tgt,att,dmginf)
-		local wep = att:GetActiveWeapon()
-		if wep and wep:IsValid() and (wep:GetClass() == "weapon_ttt_sipistol") then
-			self:Earn(att)
+		if att and att:IsPlayer() then
+			local wep = att:GetActiveWeapon()
+			if wep and wep:IsValid() and (wep:GetClass() == "weapon_ttt_sipistol") then
+				self:Earn(att)
+			end
 		end
     end)
 end
