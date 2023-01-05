@@ -8,7 +8,7 @@ function TROPHY:Trigger()
     self.roleMessage = ROLE_OLDMAN
 
     self:AddHook("DoPlayerDeath", function(tgt,att,dmginf)
-		if CR_VERSION and (att:GetRole() == ROLE_OLDMAN) and att:GetNWBool("AdrenalineRushed", false) then
+		if att and att:IsPlayer() and (att:GetRole() == ROLE_OLDMAN) and att:GetNWBool("AdrenalineRushed", false) then
 			self:Earn(att)
 		end
     end)

@@ -12,9 +12,9 @@ function TROPHY:Trigger()
 			local att = dinfo:GetAttacker()
 			local wep = dinfo:GetInflictor()
 			
-			if att:IsPlayer() then
+			if att and att:IsPlayer() then
 				wep = att:GetActiveWeapon()
-			elseif wep:IsPlayer() then
+			elseif wep and wep:IsPlayer() then
 				att = wep
 				wep = wep:GetActiveWeapon()
 			end
