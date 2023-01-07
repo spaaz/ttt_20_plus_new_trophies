@@ -11,7 +11,7 @@ function TROPHY:Trigger()
 		if tgt:IsPlayer() and tgt:HasGodMode() then
 			local att = dmginf:GetAttacker()
 			local wep = tgt:GetActiveWeapon()
-			if att == tgt and wep:GetClass() == "weapon_rp_railgun" then
+			if (att == tgt) and wep and wep:GetClass() == "weapon_rp_railgun" then
 				self:Earn(tgt)
 			end
 		end

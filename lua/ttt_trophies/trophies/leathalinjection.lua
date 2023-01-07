@@ -27,7 +27,7 @@ function TROPHY:Trigger()
 	
 	-- If given to victim and used:
     self:AddHook("DoPlayerDeath", function(tgt,att,dmginf)
-		if att and att:IsPlayer() and (att:GetActiveWeapon():GetClass() == "weapon_par_cure") then
+		if att and att:IsPlayer() and att:GetActiveWeapon() and (att:GetActiveWeapon():GetClass() == "weapon_par_cure") then
 			if (!CR_VERSION and !tgt:IsActiveTraitor()) or (CR_VERSION and (tgt:IsInnocentTeam() or tgt:IsMonsterTeam() or tgt:IsIndependentTeam() or ((tgt:GetRole() == ROLE_CLOWN) and tgt:GetNWBool("KillerClownActive", false)))) then	
 					if tgt == att then
 					local wep = att:GetActiveWeapon()
