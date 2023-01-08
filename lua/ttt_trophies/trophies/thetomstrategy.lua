@@ -1,7 +1,7 @@
 local TROPHY = {}
 TROPHY.id = "thetomstrategy"
 TROPHY.title = "The Tom strategy"
-TROPHY.desc = "On the traitor team, kill a teammate and resurrect them with a defib"
+TROPHY.desc = "On the traitor team, kill or be killed by a teammate, defib the one killed and win"
 TROPHY.rarity = 2
 
 function TROPHY:Trigger()
@@ -35,13 +35,25 @@ function TROPHY:Trigger()
 					end
 					timer.Simple(delay, function()			
 						if deadtraitor and deadtraitor:Alive() then
-							self:Earn(ply)
+							ply.gettomstrat = true
+							deadtraitor.gettomstrat = true
 						end
 					end)
 				end	
 			end
 		end
-    end)	
+    end)
+	
+    self:AddHook("TTTEndRound", function(result)
+    if result == WIN_TRAITOR then
+        for _, ply in ipairs(player.GetAll()) do
+            if TTTTrophies:IsTraitorTeam(ply) and ply.gettomstrat then
+                self:Earn(ply)
+            end
+        end
+    end
+end)
+
 end
 
 function TROPHY:Condition()
