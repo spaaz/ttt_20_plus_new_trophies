@@ -8,7 +8,7 @@ function TROPHY:Trigger()
     self.roleMessage = ROLE_TRAITOR
 
     self:AddHook("DoPlayerDeath", function(tgt,att,dmginf)
-		if att and att:IsPlayer() and att:IsTraitorTeam() and (tgt:GetRole() == ROLE_OLDMAN) then
+		if IsPlayer(att) and att:IsTraitorTeam() and (tgt:GetRole() == ROLE_OLDMAN) then
 			self:Earn(att)
 		end
     end)

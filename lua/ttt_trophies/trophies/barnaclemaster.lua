@@ -6,22 +6,22 @@ TROPHY.rarity = 2
 
 function TROPHY:Trigger()
     self.roleMessage = ROLE_TRAITOR
-	self:AddHook( "TTTBeginRound", function()
-		for _, ply in ipairs(player.GetAll()) do
-			ply.barnaclekill = false
+    self:AddHook( "TTTBeginRound", function()
+        for _, ply in ipairs(player.GetAll()) do
+            ply.barnaclekill = false
         end
-	end)
+    end)
 
-    self:AddHook("DoPlayerDeath", function(tgt,att,dmginf)
-			if att and att:IsPlayer() and dmginf:GetInflictor() and dmginf:GetInflictor():GetClass() == "npc_barnacle" then
-				if (att:IsActiveTraitor() or (CR_VERSION and att:IsTraitorTeam())) and ((!CR_VERSION and !tgt:IsActiveTraitor()) or (CR_VERSION and (tgt:IsInnocentTeam() or tgt:IsMonsterTeam() or tgt:IsIndependentTeam() or ((tgt:GetRole() == ROLE_CLOWN) and tgt:GetNWBool("KillerClownActive", false))))) then	
-					if att.barnaclekill then
-						self:Earn(att)
-					else
-						att.barnaclekill = true
-					end
-				end
-			end
+    self:AddHook("DoPlayerDeath", function(tgt, att, dmginf)
+        if IsPlayer(att) and IsValid(dmginf:GetInflictor()) and dmginf:GetInflictor():GetClass() == "npc_barnacle" then
+            if (att:IsActiveTraitor() or (CR_VERSION and att:IsTraitorTeam())) and ((not CR_VERSION and not tgt:IsActiveTraitor()) or (CR_VERSION and (tgt:IsInnocentTeam() or tgt:IsMonsterTeam() or tgt:IsIndependentTeam() or ((tgt:GetRole() == ROLE_CLOWN) and tgt:GetNWBool("KillerClownActive", false))))) then
+                if att.barnaclekill then
+                    self:Earn(att)
+                else
+                    att.barnaclekill = true
+                end
+            end
+        end
     end)
 end
 

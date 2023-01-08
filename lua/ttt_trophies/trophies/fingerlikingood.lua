@@ -16,10 +16,10 @@ function TROPHY:Trigger()
 		if tgt:GetClass() == "ttt_chickent" then
 			local wep = dinfo:GetInflictor()
 			local att = dinfo:GetAttacker()
-			if wep and wep:IsPlayer() then
+			if IsPlayer(wep) then
 				att = wep
 			end
-			if att and att:IsPlayer() then
+			if IsPlayer(att) then
 				tgt.eply = att
 				local health = tgt.CurHealth
 				if health <= 0 then

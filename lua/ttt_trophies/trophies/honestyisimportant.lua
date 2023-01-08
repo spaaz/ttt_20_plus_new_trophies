@@ -8,7 +8,8 @@ function TROPHY:Trigger()
     self.roleMessage = ROLE_TRAITOR
 
     self:AddHook("PlayerSay", function(sender, text, teamChat)
-        if text == "I'm a traitor" then
+        text = string.lower(text)
+        if text == "i'm a traitor" or text == "im a traitor" then
             self:Earn(sender)
         end
     end)

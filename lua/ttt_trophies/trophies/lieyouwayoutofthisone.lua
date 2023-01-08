@@ -14,20 +14,22 @@ function TROPHY:Trigger()
 	end)
 	
     self:AddHook("DoPlayerDeath", function(tgt,att,dmginf)
-		if att and att:IsPlayer() and (att:IsActiveTraitor() or (CR_VERSION and att:IsTraitorTeam())) then
+		if IsPlayer(att) and (att:IsActiveTraitor() or (CR_VERSION and att:IsTraitorTeam())) then
 			if att.lywootovict == nil then
 				att.lywootovict = {}
 			end
 			table.insert(att.lywootovict, tgt)
 			local index = #att.lywootovict
-			timer.Simple(5, function()			
-				table.remove(att.lywootovict,index)
+			timer.Simple(5, function()		
+				if IsPlayer(att) then
+					table.remove(att.lywootovict,index)
+				end
 			end)
 		end
     end)
 
-    self:AddHook("TTTBodyFound", function( GAMEMODE, ply, deadply, rag )
-		if ply.lywootovict and deadply then
+    self:AddHook("TTTBodyFound", function( ply, deadply, rag )
+		if ply.lywootovict and IsPlayer(deadply) then
 			for i = 1, #ply.lywootovict do
 				if deadply == ply.lywootovict[ i ] then
 					self:Earn(ply)

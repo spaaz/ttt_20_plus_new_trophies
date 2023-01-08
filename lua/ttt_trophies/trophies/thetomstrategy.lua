@@ -14,7 +14,7 @@ function TROPHY:Trigger()
 	end)
 	
     self:AddHook("DoPlayerDeath", function(tgt,att,dmginf)
-		if att and att:IsPlayer() and (att:IsActiveTraitor() or (CR_VERSION and att:IsTraitorTeam())) and (tgt:IsActiveTraitor() or (CR_VERSION and tgt:IsTraitorTeam())) then
+		if IsPlayer(att) and (att:IsActiveTraitor() or (CR_VERSION and att:IsTraitorTeam())) and (tgt:IsActiveTraitor() or (CR_VERSION and tgt:IsTraitorTeam())) then
 			if att.traitorbuddyvict == nil then
 				att.traitorbuddyvict = {}
 			end
@@ -23,12 +23,12 @@ function TROPHY:Trigger()
     end)
 	
     self:AddHook("KeyPress", function( ply, key )
-		if ply.traitorbuddyvict and (key == IN_ATTACK) and ply:GetActiveWeapon():IsValid() and (ply:GetActiveWeapon():GetClass() == "weapon_vadim_defib") then
+		if ply.traitorbuddyvict and (key == IN_ATTACK) and IsValid(ply:GetActiveWeapon()) and (ply:GetActiveWeapon():GetClass() == "weapon_vadim_defib") then
 			local tr  = ply:GetEyeTrace( MASK_SHOT_HULL )
 			local ent = tr.Entity
 			for i = 1, #ply.traitorbuddyvict do
 				local deadtraitor = ply.traitorbuddyvict[ i ]
-				if ent and IsValid(ent) and ent:GetClass() == "prop_ragdoll" and !deadtraitor:Alive() then
+				if ent and IsValid(ent) and ent:GetClass() == "prop_ragdoll" and not deadtraitor:Alive() then
 					local delay = 4
 					if GetConVar("ttt_defib_chargetime") then
 						delay = 1 + GetConVar("ttt_defib_chargetime"):GetInt()
@@ -45,12 +45,7 @@ function TROPHY:Trigger()
 end
 
 function TROPHY:Condition()
-	
-	if ConVarExists("ttt_defib_traitor") then
-		return GetConVar("ttt_defib_traitor"):GetBool()
-	end
-	return weapons.Get("weapon_vadim_defib") ~= nil
-
+	return weapons.Get("weapon_vadim_defib") ~= nil and TTTTrophies:IsBuyableItem(ROLE_TRAITOR, weapons.Get("weapon_vadim_defib"))
 end
 
 RegisterTTTTrophy(TROPHY)
