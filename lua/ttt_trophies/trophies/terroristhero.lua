@@ -13,13 +13,13 @@ function TROPHY:Trigger()
 	end)
 
     self:AddHook("DoPlayerDeath", function(tgt,att,dmginf)
-		if att and att:IsPlayer() and ((!CR_VERSION and !att:IsActiveTraitor()) or (CR_VERSION and (att:IsInnocentTeam()))) and (tgt:IsActiveTraitor() or (CR_VERSION and tgt:IsTraitorTeam())) then	
+		if IsPlayer(att) and ((not CR_VERSION and not att:IsActiveTraitor()) or (CR_VERSION and (att:IsInnocentTeam()))) and (tgt:IsActiveTraitor() or (CR_VERSION and tgt:IsTraitorTeam())) then	
 			att.terrhero =att.terrhero + 1
 		end
     end)
 	self:AddHook( "TTTEndRound", function()
 		for _, ply in ipairs(player.GetAll()) do
-			if ply.terrhero >= 2 then
+			if ply.terrhero and ply.terrhero >= 2 then
 				self:Earn(ply)
 			end
         end

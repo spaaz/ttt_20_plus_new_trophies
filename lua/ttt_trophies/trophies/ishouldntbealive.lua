@@ -8,9 +8,9 @@ function TROPHY:Trigger()
     self.roleMessage = ROLE_DETECTIVE
 
     self:AddHook("EntityTakeDamage", function(tgt,dmginf)
-		if tgt:IsPlayer() and tgt:GetNWBool("HasUNOReverse") then
+		if IsPlayer(tgt) and tgt:GetNWBool("HasUNOReverse") then
 			local wep = dmginf:GetInflictor()
-			if wep and wep:GetClass() == "ttt_shark_trap" then
+			if IsValid(wep) and wep:GetClass() == "ttt_shark_trap" then
 				self:Earn(tgt)
 			end
 		end

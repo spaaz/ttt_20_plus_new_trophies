@@ -7,12 +7,10 @@ TROPHY.rarity = 1
 function TROPHY:Trigger()
     self.roleMessage = ROLE_TRAITOR
 
-    self:AddHook("DoPlayerDeath", function(tgt,att,dmginf)
-		if dmginf:GetInflictor() and dmginf:GetInflictor():GetClass() == "hwapoon_arrow" then
-			if att and att:IsPlayer() then
-				self:Earn(att)
-			end
-		end
+    self:AddHook("DoPlayerDeath", function(tgt, att, dmginf)
+        if IsPlayer(att) and IsValid(dmginf:GetInflictor()) and dmginf:GetInflictor():GetClass() == "hwapoon_arrow" then
+            self:Earn(att)
+        end
     end)
 end
 

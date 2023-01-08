@@ -8,7 +8,7 @@ function TROPHY:Trigger()
     self.roleMessage = ROLE_INNOCENT
 
     self:AddHook("PlayerSay", function(sender, text, teamChat)
-	_, _, its, name = string.find(text,"^(It\'s )(.+)$")
+	local _, _, its, name = string.find(text,"^(It\'s )(.+)$")
         if its then
 			for _, ply in ipairs(player.GetAll()) do
 				if name == ply:Nick() then

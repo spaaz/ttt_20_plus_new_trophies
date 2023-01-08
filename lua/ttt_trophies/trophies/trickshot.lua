@@ -5,20 +5,18 @@ TROPHY.desc = "Shoot a bee with a scout rifle"
 TROPHY.rarity = 2
 
 function TROPHY:Trigger()
-    self.roleMessage = ROLE_INNOCENT
-
     self:AddHook("EntityTakeDamage", function(tgt, dinfo)
 		if tgt:GetClass() == "npc_manhack" then
 			local att = dinfo:GetAttacker()
 			local wep = dinfo:GetInflictor()
 			
-			if att and att:IsPlayer() then
+			if IsPlayer(att) then
 				wep = att:GetActiveWeapon()
-			elseif wep and wep:IsPlayer() then
+			elseif IsPlayer(wep) then
 				att = wep
 				wep = wep:GetActiveWeapon()
 			end
-			if wep and att:IsPlayer() then
+			if IsValid(wep) and IsPlayer(att) then
 				if wep:GetClass() == "weapon_zm_rifle" then
 					local tbl = tgt:GetChildren()
 					for i,v in pairs(tbl) do

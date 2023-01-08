@@ -5,10 +5,8 @@ TROPHY.desc = "Get killed by a bee"
 TROPHY.rarity = 1
 
 function TROPHY:Trigger()
-    self.roleMessage = ROLE_INNOCENT
-
     self:AddHook("DoPlayerDeath", function(tgt,att,dmginf)
-		if att:GetClass() == "npc_manhack" then
+		if IsValid(att) and att:GetClass() == "npc_manhack" then
 			local tbl = att:GetChildren()
 			for i,v in pairs(tbl) do
 				if v:GetModel() == "models/lucian/props/stupid_bee.mdl" then

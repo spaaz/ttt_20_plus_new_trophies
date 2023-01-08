@@ -1,7 +1,7 @@
 local TROPHY = {}
 TROPHY.id = "whywontyoudie"
 TROPHY.title = "Why won\'t you die!"
-TROPHY.desc = "Receive 120 or more points of damage in a single round before dying"
+TROPHY.desc = "Lose 120 or more points of health in a single round"
 TROPHY.rarity = 1
 
 function TROPHY:Trigger()
@@ -18,10 +18,12 @@ function TROPHY:Trigger()
         end
 	end)
 	
-    self:AddHook("PostEntityTakeDamage", function(tgt,dinfo)
-		if tgt:IsPlayer() and (tgt.damcount ~= nil) then
+    self:AddHook("PostEntityTakeDamage", function(tgt,dinfo,took)
+		if not took then return end
+
+		if IsPlayer(tgt) and (tgt.damcount ~= nil) then
 			local dam = dinfo:GetDamage()
-			if (dam > 0) and (dam < tgt:Health()) then
+			if dam and (dam > 0) then
 				tgt.damcount = tgt.damcount + dam
 			end
 			if tgt.damcount >= 120 then

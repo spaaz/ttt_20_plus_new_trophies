@@ -8,13 +8,17 @@ function TROPHY:Trigger()
     self.roleMessage = ROLE_TRAITOR
 
     self:AddHook("DoPlayerDeath", function(tgt,att,dmginf)
-		if att and att:IsPlayer() then
+		if IsPlayer(att) then
 			local wep = att:GetActiveWeapon()
-			if wep and wep:IsValid() and (wep:GetClass() == "weapon_ttt_knife") then
+			if IsValid(wep) and (wep:GetClass() == "weapon_ttt_knife") then
 				self:Earn(att)
 			end
 		end
     end)
+end
+
+function TROPHY:Condition()
+	return TTTTrophies:IsBuyableItem(ROLE_TRAITOR, weapons.Get("weapon_ttt_knife"))
 end
 
 RegisterTTTTrophy(TROPHY)

@@ -12,9 +12,9 @@ function TROPHY:Trigger()
         end
 	end)
     self:AddHook("DoPlayerDeath", function(tgt,att,dmginf)
-		if att and att:IsPlayer() and ((!CR_VERSION and !att:IsActiveTraitor()) or (CR_VERSION and (att:IsInnocentTeam()))) and (tgt:IsActiveTraitor() or (CR_VERSION and tgt:IsTraitorTeam())) then
+		if IsPlayer(att) and ((not CR_VERSION and not att:IsActiveTraitor()) or (CR_VERSION and (att:IsInnocentTeam()))) and (tgt:IsActiveTraitor() or (CR_VERSION and tgt:IsTraitorTeam())) then
 			local wep = att:GetActiveWeapon()
-			if wep and wep:IsValid() and (wep:GetClass() == "weapon_zm_improvised") then
+			if IsValid(wep) and (wep:GetClass() == "weapon_zm_improvised") then
 				att.crowbismight = true
 			end
 		end
