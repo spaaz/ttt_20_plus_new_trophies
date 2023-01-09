@@ -23,7 +23,7 @@ function TROPHY:Trigger()
 
 		if IsPlayer(tgt) and (tgt.damcount ~= nil) then
 			local dam = dinfo:GetDamage()
-			if dam and (dam > 0) then
+			if dam and dam > 0 and self:IsAlive(tgt) then
 				tgt.damcount = tgt.damcount + dam
 			end
 			if tgt.damcount >= 120 then
