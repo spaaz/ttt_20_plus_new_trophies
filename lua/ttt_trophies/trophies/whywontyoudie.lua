@@ -3,10 +3,9 @@ TROPHY.id = "whywontyoudie"
 TROPHY.title = "Why won\'t you die!"
 TROPHY.desc = "Lose 120 or more health without dying in a single round"
 TROPHY.rarity = 1
+TROPHY.hidden = true
 
 function TROPHY:Trigger()
-    self.roleMessage = ROLE_DETECTIVE
-
     self:AddHook("TTTBeginRound", function()
         for _, ply in ipairs(player.GetAll()) do
             ply.damcount = 0

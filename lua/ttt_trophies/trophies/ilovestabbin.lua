@@ -3,10 +3,9 @@ TROPHY.id = "ilovestabbin"
 TROPHY.title = "I love stabbin\'"
 TROPHY.desc = "Kill someone with a knife"
 TROPHY.rarity = 1
+TROPHY.hidden = true
 
 function TROPHY:Trigger()
-    self.roleMessage = ROLE_TRAITOR
-
     self:AddHook("DoPlayerDeath", function(tgt, att, dmginf)
         if IsPlayer(att) then
             local wep = att:GetActiveWeapon()
