@@ -7,36 +7,38 @@ TROPHY.rarity = 1
 function TROPHY:Trigger()
     self.roleMessage = ROLE_TRAITOR
 
-	self:AddHook( "TTTBeginRound", function()
-		for _, ply in ipairs(player.GetAll()) do
-			ply.lywootovict = nil
+    self:AddHook("TTTBeginRound", function()
+        for _, ply in ipairs(player.GetAll()) do
+            ply.lywootovict = nil
         end
-	end)
-	
-    self:AddHook("DoPlayerDeath", function(tgt,att,dmginf)
-		if IsPlayer(att) and (att:IsActiveTraitor() or (CR_VERSION and att:IsTraitorTeam())) then
-			if att.lywootovict == nil then
-				att.lywootovict = {}
-			end
-			table.insert(att.lywootovict, tgt)
-			local index = #att.lywootovict
-			timer.Simple(5, function()		
-				if IsPlayer(att) then
-					table.remove(att.lywootovict,index)
-				end
-			end)
-		end
     end)
 
-    self:AddHook("TTTBodyFound", function( ply, deadply, rag )
-		if ply.lywootovict and IsPlayer(deadply) then
-			for i = 1, #ply.lywootovict do
-				if deadply == ply.lywootovict[ i ] then
-					self:Earn(ply)
-				end	
-			end
-		end
-    end)	
+    self:AddHook("DoPlayerDeath", function(tgt, att, dmginf)
+        if IsPlayer(att) and (att:IsActiveTraitor() or (CR_VERSION and att:IsTraitorTeam())) then
+            if not att.lywootovict then
+                att.lywootovict = {}
+            end
+
+            table.insert(att.lywootovict, tgt)
+            local index = #att.lywootovict
+
+            timer.Simple(5, function()
+                if IsPlayer(att) and istable(att.lywootovict) then
+                    table.remove(att.lywootovict, index)
+                end
+            end)
+        end
+    end)
+
+    self:AddHook("TTTBodyFound", function(ply, deadply, rag)
+        if ply.lywootovict and IsPlayer(deadply) then
+            for i = 1, #ply.lywootovict do
+                if deadply == ply.lywootovict[i] then
+                    self:Earn(ply)
+                end
+            end
+        end
+    end)
 end
 
 RegisterTTTTrophy(TROPHY)
