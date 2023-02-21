@@ -10,7 +10,9 @@ function TROPHY:Trigger()
     self:AddHook("PlayerSay", function(sender, text, teamChat)
         text = string.lower(text)
         if text == "i'm a traitor" or text == "im a traitor" then
-            self:Earn(sender)
+            if sender:IsActiveTraitor() or (CR_VERSION and sender:IsTraitorTeam()) then
+                self:Earn(sender)
+            end
         end
     end)
 end
