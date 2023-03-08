@@ -13,7 +13,7 @@ function TROPHY:Trigger()
             if IsValid(prop) then
                 local mod = prop:GetModel()
 
-                if mod and isstring(mod) and mod == "models/props_c17/oildrum001_explosive.mdl" then
+                if mod and isstring(mod) and ((mod == "models/props_c17/oildrum001_explosive.mdl") or (mod == "models/props_phx/oildrum001_explosive.mdl")) then
                     self:Earn(att)
                 end
             end
