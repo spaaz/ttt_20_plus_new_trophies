@@ -27,11 +27,19 @@ function TROPHY:Trigger()
         if att.IsInnocentTeam then
             -- Custom Roles case
             if att:IsInnocentTeam() then
+                if not att.terrhero then
+                    att.terrhero = 0
+                end
+
                 att.terrhero = att.terrhero + 1
             end
         else
             -- Vanilla TTT case
             if att:GetRole() == ROLE_INNOCENT or att:GetRole() == ROLE_DETECTIVE then
+                if not att.terrhero then
+                    att.terrhero = 0
+                end
+
                 att.terrhero = att.terrhero + 1
             end
         end
