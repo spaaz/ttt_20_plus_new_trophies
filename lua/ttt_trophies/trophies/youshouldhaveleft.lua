@@ -42,7 +42,7 @@ function TROPHY:Trigger()
 end
 
 function TROPHY:Condition()
-    return ConVarExists("ttt_glitch_enabled") and GetConVar("ttt_glitch_enabled"):GetBool() and TTTTrophies:IsBuyableItem(ROLE_TRAITOR, "weapon_vadim_defib")
+    return TTTTrophies:CanRoleSpawn(ROLE_GLITCH) and TTTTrophies:IsBuyableItem(ROLE_TRAITOR, "weapon_vadim_defib")
 end
 
 RegisterTTTTrophy(TROPHY)
