@@ -80,7 +80,7 @@ function TROPHY:Trigger()
 end
 
 function TROPHY:Condition()
-	return TTTTrophies:CanRoleSpawn(ROLE_PARASITE) and util.CanRoleSpawn(ROLE_IMPERSONATOR)
+	return TTTTrophies:CanRoleSpawn(ROLE_PARASITE) and TTTTrophies:CanRoleSpawn(ROLE_IMPERSONATOR)
 end
 
 RegisterTTTTrophy(TROPHY)
